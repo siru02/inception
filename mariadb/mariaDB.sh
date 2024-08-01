@@ -60,6 +60,10 @@ EOF
     mysqladmin -u root -pabcd shutdown
 fi
 
+config_file="/etc/my.cnf.d/mariadb-server.cnf"
+
+sed -i 's/^#\s*bind-address/bind-address/' "$config_file"
+
 echo "building success";
 
 # MariaDB 실행 (포그라운드)
