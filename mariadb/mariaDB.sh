@@ -62,7 +62,9 @@ fi
 
 config_file="/etc/my.cnf.d/mariadb-server.cnf"
 
-sed -i 's/^#\s*bind-address/bind-address/' "$config_file"
+# MariaDB 설정파일 변경
+sed -i 's/^skip-networking/#skip-networking/' $config_file
+sed -i 's/^#\s*bind-address/bind-address/' $config_file
 
 echo "building success";
 
