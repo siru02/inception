@@ -1,5 +1,13 @@
-FROM alpine:3.20.1
+FROM alpine:3.20
 
 RUN apk update && \
     apk upgrade && \
-    apk add 
+    apk add php82 fcgi php82-cgi
+
+COPY wordpress.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/wordpress.sh
+
+EXPOSE 9000
+
+#기본 명령어 설정
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "/usr/local/bin/wordpress.sh"]

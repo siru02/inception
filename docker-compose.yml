@@ -52,5 +52,3 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
 networks:
   wordpress_net:
     driver: bridge
-
-

@@ -4,7 +4,6 @@
 INIT_FLAG="/var/lib/mysql/.initialized"
 
 # 데이터 베이스 접속 정보 설정
-DB_HOST="localhost"
 DB_PORT="3306"
 DB_USER="root"
 DB_PASS="abcd"
@@ -34,6 +33,12 @@ if [ ! -f "$INIT_FLAG" ]; then
         sleep 1
     done
 
+    config_file="/etc/my.cnf.d/mariadb-server.cnf"
+
+    # MariaDB 설정파일 변경
+    sed -i 's/^skip-networking/#skip-networking/' $config_file
+    sed -i 's/^#\s*bind-address/bind-address/' $config_file
+
     # MariaDB 접속 및 명령어 실행
     mysql -u $DB_USER -p$DB_PASS << EOF
 
@@ -46,8 +51,8 @@ if [ ! -f "$INIT_FLAG" ]; then
 
     -- 워드프레스 db생성 및 관리자 추가
     CREATE DATABASE IF NOT EXISTS $WD_NAME;
-    CREATE USER IF NOT EXISTS '$WD_USER'@'localhost' IDENTIFIED BY '$WD_USER_PASS';
-    GRANT ALL PRIVILEGES ON $WD_NAME.* TO '$WD_USER'@'localhost';
+    CREATE USER IF NOT EXISTS '$WD_USER'@'%' IDENTIFIED BY '$WD_USER_PASS';
+    GRANT ALL PRIVILEGES ON $WD_NAME.* TO '$WD_USER'@'%';
     FLUSH PRIVILEGES;
 
     -- 접속 종료
@@ -59,12 +64,6 @@ EOF
     # MariaDB 종료
     mysqladmin -u root -pabcd shutdown
 fi
-
-config_file="/etc/my.cnf.d/mariadb-server.cnf"
-
-# MariaDB 설정파일 변경
-sed -i 's/^skip-networking/#skip-networking/' $config_file
-sed -i 's/^#\s*bind-address/bind-address/' $config_file
 
 echo "building success";
 
