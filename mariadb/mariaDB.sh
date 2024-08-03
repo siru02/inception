@@ -15,10 +15,10 @@ WD_USER="hgu"
 WD_USER_PASS="1234"
 
 if [ ! -f "$INIT_FLAG" ]; then
-    # mysql 폴더 생성 및 권한 설정
+    # mysql 폴더 생성 및 권한 설정 TODO: makefile에서 수행해야한다
     if [ ! -d "/var/lib/mysql/mysql" ]; then
         mkdir -p /var/lib/mysql
-        chown -R mysql:mysql /var/lib/mysql
+        # chown -R mysql:mysql /var/lib/mysql
         chmod -R 755 /var/lib/mysql
     fi
 
