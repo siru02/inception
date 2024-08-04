@@ -1,4 +1,4 @@
-FROM alpine:3.20
+FROM alpine:3.19
 
 RUN apk update && \
     apk upgrade && \
@@ -6,8 +6,6 @@ RUN apk update && \
     apk add php php-phar php-curl php-openssl php-mysqli php-iconv php-fpm
 
 COPY wordpress.sh /usr/local/bin
-
-RUN adduser -S nginx && addgroup -S nginx
 
 RUN chmod +x /usr/local/bin/wordpress.sh
 
