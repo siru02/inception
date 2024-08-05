@@ -1,4 +1,4 @@
-version: '1.0'
+version: '3.8'
 
 services: #여기에 사용할 컨테이너(어플리케이션)을 정의
   mariadb:
@@ -21,31 +21,38 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
       start_period: 30s
 
   wordpress:
-    image: wordpress:latest
+    build: ./wordpress
     container_name: wordpress
     volumes:
-      - /home/hgu/data/WordPress:/path_of_wordpress #TODO
+      - /home/hgu/data/WordPress:/wordpress
     networks:
       - wordpress_net
     restart: always
-    environment:
-      WORDPRESS_DB_HOST: mariadb:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: example_password
-      WORDPRESS_DB_NAME: wordpress
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping --silent || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     depends_on:
       - mariadb
 
   nginx:
-    image: nginx:latest
+    build: ./nginx
     container_name: nginx
     networks:
-      - default
       - wordpress_net
     ports:
       - "8080:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /home/hgu/data/WordPress:/
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping --silent || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     depends_on:
       - wordpress
 

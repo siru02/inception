@@ -11,10 +11,8 @@ if [ ! -f "$INIT_FLAG" ]; then
 	mv wp-cli.phar /usr/local/bin/wp
 		
 	# wordpress설치
-	mkdir /var/www
-	mkdir /var/www/html
-	wp core download --path=/var/www/html
-    echo "here1"
+    mkdir /wordpress
+	wp core download --path=/wordpress
 
     # 새로운 DB사용자 정보 설정
     WD_NAME="wordpress"
@@ -24,10 +22,9 @@ if [ ! -f "$INIT_FLAG" ]; then
     DB_HOST="172.17.0.2"
 
     # wordpress conf파일 설정(db와 유저)
-    cd /var/www/html
+    cd /wordpress
     wp config create --dbhost=$DB_HOST --dbname=$WD_NAME --dbuser=$WD_USER --dbpass=$WD_USER_PASS
     #wp config create --dbhost=172.17.0.2 --dbname=wordpress --dbuser=hgu --dbpass=1234
-    echo "here2"
 
     # wordpress install
     wp core install --url=hgu_wordpress --title="hgu" --admin_user=hgu --admin_password=qwer --admin_email=khm32323@naver.coms
@@ -43,8 +40,8 @@ if [ ! -f "$INIT_FLAG" ]; then
     sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php82/php-fpm.conf
 
     touch $INIT_FLAG
-
-    exec php-fpm82 -F
 fi
+
+exec php-fpm82 -F
 
 echo "building success";
