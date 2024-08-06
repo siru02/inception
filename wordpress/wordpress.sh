@@ -30,7 +30,7 @@ if [ ! -f "$INIT_FLAG" ]; then
     wp core install --url=hgu_wordpress --title="hgu" --admin_user=hgu --admin_password=qwer --admin_email=khm32323@naver.coms
     
     # php-fpm
-    adduser -S nginx && addgroup -S nginx    
+    adduser -S nginx && addgroup -S nginx
     sed -i 's/user = nobody/user = nginx/g' /etc/php82/php-fpm.d/www.conf
     sed -i 's/group = nobody/group = nginx/g' /etc/php82/php-fpm.d/www.conf
     sed -i 's/;listen.owner = nobody/listen.owner = nginx/g' /etc/php82/php-fpm.d/www.conf
