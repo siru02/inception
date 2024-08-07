@@ -34,6 +34,10 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
       timeout: 10s
       retries: 3
       start_period: 30s
+    ports: #포트를 외부에 노출해야하나? 굳이?
+      - "9000:9000"
+    expose:
+      - "9000"
     depends_on:
       - mariadb
 
@@ -43,9 +47,9 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
     networks:
       - wordpress_net
     ports:
-      - "8080:80"
+      - "443:443"
     volumes:
-      - /home/hgu/data/WordPress:/
+      - /home/hgu/data/WordPress:/wordpress
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping --silent || exit 1"]
@@ -55,6 +59,21 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
       start_period: 30s
     depends_on:
       - wordpress
+
+# volume
+volumes:
+  mariaDB_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/hgu/data/DB
+  wordpress_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/hgu/data/wordpress
 
 networks:
   wordpress_net:
