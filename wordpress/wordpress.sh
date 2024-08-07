@@ -12,9 +12,9 @@ if [ ! -f "$INIT_FLAG" ]; then
 		
 	# wordpress설치
     mkdir /wordpress
-	wp core download --path=/wordpress
+	wp core download --path=/wordpress # 루트디렉토리의 wordpress폴더에 설치한다
 
-    # 새로운 DB사용자 정보 설정
+    # 새로운 DB사용자 정보 설정 .env에 추가해야함
     WD_NAME="wordpress"
     WD_USER="hgu"
     WD_USER_PASS="1234"

@@ -36,8 +36,8 @@ if [ ! -f "$INIT_FLAG" ]; then
     config_file="/etc/my.cnf.d/mariadb-server.cnf"
 
     # MariaDB 설정파일 변경
-    sed -i 's/^skip-networking/#skip-networking/' $config_file
-    sed -i 's/^#\s*bind-address/bind-address/' $config_file
+    sed -i 's/^skip-networking/#skip-networking/' $config_file # skip-networking을 주석처리하면 유닉스소켓대신 네트워크로 통신하겠다는 설정
+    sed -i 's/^#\s*bind-address/bind-address/' $config_file # bind-address는 maria-db에 연결허용할 ip주소를 설정한다
 
     # MariaDB 접속 및 명령어 실행
     mysql -u $DB_USER -p$DB_PASS << EOF
