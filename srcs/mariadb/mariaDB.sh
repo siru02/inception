@@ -3,17 +3,6 @@
 # 초기화 여부 확인
 INIT_FLAG="/.initialized"
 
-# 데이터 베이스 접속 정보 설정
-DB_PORT="3306"
-DB_USER="root"
-DB_PASS="1234"
-DB_NAME=""
-
-# 새로운 DB사용자 정보 설정
-WD_NAME="wordpress"
-WD_USER="hgu"
-WD_USER_PASS="1234"
-
 if [ ! -f "$INIT_FLAG" ]; then
        # 초기화 완료 플래그 생성
     touch "$INIT_FLAG"

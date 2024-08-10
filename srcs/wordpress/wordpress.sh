@@ -3,9 +3,6 @@
 # 초기화 여부 확인
 # INIT_FLAG="/wordpress/.initialized"
 
-# echo "sleeping"
-# sleep 1
-
 if [ ! -f "/wordpress/wp-config.php" ]; then
 
     # wp-cli 설치
@@ -18,12 +15,6 @@ if [ ! -f "/wordpress/wp-config.php" ]; then
     chmod -R 755 /wordpress
 	wp core download --path=/wordpress # 루트디렉토리의 wordpress폴더에 설치한다
     cd /wordpress
-
-    # 새로운 DB사용자 정보 설정 .env에 추가해야함
-    WD_NAME="wordpress"
-    WD_USER="hgu"
-    WD_USER_PASS="1234"
-    DB_HOST="mariadb"
 
     # wordpress conf파일 설정(db와 유저)
     # wp config create --dbhost=3306 --dbname=wordpress --dbuser=hgu --dbpass=1234

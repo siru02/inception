@@ -1,4 +1,4 @@
-# version: '3.8'
+version: '3.8'
 
 services: #여기에 사용할 컨테이너(어플리케이션)을 정의
   mariadb:
@@ -81,7 +81,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /Users/guhyeokmo/Desktop/42/data/hgu/wordpress
+      device: /Users/guhyeokmo/Desktop/42/data/hgu/WordPress
 
 networks:
   wordpress_net:
