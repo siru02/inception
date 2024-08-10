@@ -5,7 +5,7 @@ INIT_FLAG="/.initialized"
 
 # wordpress, db컨테이너를 위해 대기
 echo "Waiting db, wordpress"
-sleep 42
+# sleep 42
 
 if [ ! -f "$INIT_FLAG" ]; then
     touch $INIT_FLAG

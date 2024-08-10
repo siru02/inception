@@ -13,10 +13,10 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping --silent || exit 1"]
-      interval: 30s
+      interval: 10s
       timeout: 10s
-      retries: 3
-      start_period: 30s
+      retries: 5
+      start_period: 10s
 
   wordpress:
     build: ./wordpress
@@ -27,11 +27,11 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
       - wordpress_net
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "CMD-SHELL", "curl -f localhost:9000 || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
+          test: ["CMD-SHELL", "SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect localhost:9000"]
+          interval: 10s
+          timeout: 10s
+          retries: 3
+          start_period: 30s
     expose:
       - "9000"
     # depends_on:
@@ -50,12 +50,6 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
     volumes:
       - wordpress_volume:/wordpress
     restart: always
-    healthcheck:
-      test: ["CMD-SHELL", " curl -f localhost ping --silent || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
     depends_on:
       wordpress:
         condition: service_healthy

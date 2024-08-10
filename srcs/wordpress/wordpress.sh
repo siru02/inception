@@ -1,13 +1,12 @@
 #!/bin/sh
 
 # 초기화 여부 확인
-INIT_FLAG="/wordpress/.initialized"
+# INIT_FLAG="/wordpress/.initialized"
 
-echo "sleeping"
-sleep 12
+# echo "sleeping"
+# sleep 1
 
-if [ ! -f "$INIT_FLAG" ]; then
-    touch $INIT_FLAG
+if [ ! -f "/wordpress/wp-config.php" ]; then
 
     # wp-cli 설치
 	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -15,8 +14,10 @@ if [ ! -f "$INIT_FLAG" ]; then
 	mv wp-cli.phar /usr/local/bin/wp
 		
 	# wordpress설치
-    mkdir /wordpress
+    mkdir -p /wordpress
+    chmod -R 755 /wordpress
 	wp core download --path=/wordpress # 루트디렉토리의 wordpress폴더에 설치한다
+    cd /wordpress
 
     # 새로운 DB사용자 정보 설정 .env에 추가해야함
     WD_NAME="wordpress"
@@ -25,9 +26,8 @@ if [ ! -f "$INIT_FLAG" ]; then
     DB_HOST="mariadb"
 
     # wordpress conf파일 설정(db와 유저)
-    cd /wordpress
     # wp config create --dbhost=3306 --dbname=wordpress --dbuser=hgu --dbpass=1234
-    wp config create --dbhost=3306 --dbname=wordpress --dbuser=hgu --dbpass=1234
+    wp config create --dbhost=mariadb --dbname=wordpress --dbuser=hgu --dbpass=1234
 
     # wordpress install
     wp core install --url=hgu_wordpress --title="hgu" --admin_user=hgu --admin_password=qwer --admin_email=khm32323@naver.coms

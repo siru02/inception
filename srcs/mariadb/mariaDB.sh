@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # 초기화 여부 확인
-INIT_FLAG="/var/lib/mysql/.initialized"
+INIT_FLAG="/.initialized"
 
 # 데이터 베이스 접속 정보 설정
 DB_PORT="3306"
