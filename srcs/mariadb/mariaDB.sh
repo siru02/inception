@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# 초기화 여부 확인
+# 초기화 여부 확인 TODO: 이렇게 하는게 맞는지 확인해야함 결국 재시작시 기록이 남아있나?
 INIT_FLAG="/.initialized"
 
 if [ ! -f "$INIT_FLAG" ]; then
