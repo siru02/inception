@@ -18,13 +18,12 @@ if [ ! -f "$INIT_FLAG" ]; then
     WD_NAME="wordpress"
     WD_USER="hgu"
     WD_USER_PASS="1234"
-    #DB_HOST="mariadb"
-    DB_HOST="172.17.0.2"
+    DB_HOST="mariadb:3306"
 
     # wordpress conf파일 설정(db와 유저)
     cd /wordpress
     wp config create --dbhost=$DB_HOST --dbname=$WD_NAME --dbuser=$WD_USER --dbpass=$WD_USER_PASS
-    #wp config create --dbhost=172.17.0.2 --dbname=wordpress --dbuser=hgu --dbpass=1234
+    # wp config create --dbhost=mariadb:3306 --dbname=wordpress --dbuser=hgu --dbpass=1234
 
     # wordpress install
     wp core install --url=hgu_wordpress --title="hgu" --admin_user=hgu --admin_password=qwer --admin_email=khm32323@naver.coms
