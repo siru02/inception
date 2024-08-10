@@ -58,6 +58,8 @@ if [ ! -f "$INIT_FLAG" ]; then
     -- 접속 종료
 EOF
 
+    # wordpress폴더 권한부여
+    chmod -R 755 /var/lib/mysql/wordpress
     # 초기화 완료 플래그 생성
     touch "$INIT_FLAG"
 

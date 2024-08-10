@@ -23,7 +23,7 @@ if [ ! -f "$INIT_FLAG" ]; then
 
     # wordpress conf파일 설정(db와 유저)
     cd /wordpress
-    wp config create --dbhost=$WD_HOST --dbname=$WD_NAME --dbuser=$WD_USER --dbpass=$WD_USER_PASS
+    wp config create --dbhost=$DB_HOST --dbname=$WD_NAME --dbuser=$WD_USER --dbpass=$WD_USER_PASS
     # wp config create --dbhost=mariadb:3306 --dbname=wordpress --dbuser=hgu --dbpass=1234
 
     # wordpress install

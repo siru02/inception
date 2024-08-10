@@ -8,8 +8,6 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
       - mariaDB_volume:/var/lib/mysql #여기만 bind하면 되나?
     networks:
       - wordpress_net
-    ports: #포트를 외부에 노출해야하나? 굳이?
-      - "3306:3306"
     expose:
       - "3306"
     restart: always
@@ -34,8 +32,7 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
     #   timeout: 10s
     #   retries: 3
     #   start_period: 30s
-    ports: #포트를 외부에 노출해야하나? 굳이?
-      - "9000:9000"
+
     expose:
       - "9000"
     depends_on:
@@ -62,6 +59,20 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
       - wordpress
         # condition: service_healthy
 
+# # volume
+# volumes:
+#   mariaDB_volume:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /home/hgu/data/DB
+#   wordpress_volume:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /home/hgu/data/wordpress
 # volume
 volumes:
   mariaDB_volume:
@@ -69,13 +80,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/hgu/data/DB
+      device: /Users/guhyeokmo/Desktop/42/data/hgu/DB
   wordpress_volume:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/hgu/data/wordpress
+      device: /Users/guhyeokmo/Desktop/42/data/hgu/wordpress
 
 networks:
   wordpress_net:
