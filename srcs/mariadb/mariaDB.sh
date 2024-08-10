@@ -6,7 +6,7 @@ INIT_FLAG="/var/lib/mysql/.initialized"
 # 데이터 베이스 접속 정보 설정
 DB_PORT="3306"
 DB_USER="root"
-DB_PASS="abcd"
+DB_PASS="1234"
 DB_NAME=""
 
 # 새로운 DB사용자 정보 설정
@@ -15,7 +15,9 @@ WD_USER="hgu"
 WD_USER_PASS="1234"
 
 if [ ! -f "$INIT_FLAG" ]; then
-    # mysql 폴더 생성 및 권한 설정 TODO: makefile에서 수행해야한다
+       # 초기화 완료 플래그 생성
+    touch "$INIT_FLAG"
+    
     if [ ! -d "/var/lib/mysql/mysql" ]; then
         mkdir -p /var/lib/mysql
         # chown -R mysql:mysql /var/lib/mysql
@@ -60,14 +62,12 @@ EOF
 
     # wordpress폴더 권한부여
     chmod -R 755 /var/lib/mysql/wordpress
-    # 초기화 완료 플래그 생성
-    touch "$INIT_FLAG"
 
     # MariaDB 종료
     mysqladmin -u root -pabcd shutdown
 fi
 
-echo "building success";
+echo "mariadb building success";
 
 # MariaDB 실행 (포그라운드)
 exec /usr/bin/mysqld_safe --user=mysql --datadir=/var/lib/mysql

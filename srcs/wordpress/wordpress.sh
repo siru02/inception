@@ -1,7 +1,10 @@
 #!/bin/sh
 
 # 초기화 여부 확인
-INIT_FLAG="/.initialized"
+INIT_FLAG="/wordpress/.initialized"
+
+echo "sleeping"
+sleep 12
 
 if [ ! -f "$INIT_FLAG" ]; then
     touch $INIT_FLAG
@@ -23,8 +26,8 @@ if [ ! -f "$INIT_FLAG" ]; then
 
     # wordpress conf파일 설정(db와 유저)
     cd /wordpress
-    wp config create --dbhost=$DB_HOST --dbname=$WD_NAME --dbuser=$WD_USER --dbpass=$WD_USER_PASS
-    # wp config create --dbhost=mariadb:3306 --dbname=wordpress --dbuser=hgu --dbpass=1234
+    # wp config create --dbhost=3306 --dbname=wordpress --dbuser=hgu --dbpass=1234
+    wp config create --dbhost=3306 --dbname=wordpress --dbuser=hgu --dbpass=1234
 
     # wordpress install
     wp core install --url=hgu_wordpress --title="hgu" --admin_user=hgu --admin_password=qwer --admin_email=khm32323@naver.coms
@@ -40,6 +43,7 @@ if [ ! -f "$INIT_FLAG" ]; then
     sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php82/php-fpm.conf
 fi
 
+echo "wordpress building success";
+
 exec php-fpm82 -F
 
-echo "building success";

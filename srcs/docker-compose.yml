@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'
 
 services: #여기에 사용할 컨테이너(어플리케이션)을 정의
   mariadb:
@@ -11,12 +11,12 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
     expose:
       - "3306"
     restart: always
-    # healthcheck:
-    #   test: ["CMD-SHELL", "mysqladmin ping --silent || exit 1"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 30s
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping --silent || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
   wordpress:
     build: ./wordpress
@@ -26,18 +26,19 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
     networks:
       - wordpress_net
     restart: always
-    # healthcheck:
-    #   test: ["CMD-SHELL", "CMD-SHELL", "curl -f localhost:9000 || exit 1"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 30s
-
+    healthcheck:
+      test: ["CMD-SHELL", "CMD-SHELL", "curl -f localhost:9000 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     expose:
       - "9000"
+    # depends_on:
+    #   - mariadb
     depends_on:
-      - mariadb
-        # condition: service_healthy
+      mariadb:
+        condition: service_healthy
 
   nginx:
     build: ./nginx
@@ -49,15 +50,15 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
     volumes:
       - wordpress_volume:/wordpress
     restart: always
-    # healthcheck:
-    #   test: ["CMD-SHELL", " curl -f localhost ping --silent || exit 1"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 30s
+    healthcheck:
+      test: ["CMD-SHELL", " curl -f localhost ping --silent || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     depends_on:
-      - wordpress
-        # condition: service_healthy
+      wordpress:
+        condition: service_healthy
 
 # # volume
 # volumes:
