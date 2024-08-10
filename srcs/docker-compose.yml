@@ -13,12 +13,12 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
     expose:
       - "3306"
     restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping --silent || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
+    # healthcheck:
+    #   test: ["CMD-SHELL", "mysqladmin ping --silent || exit 1"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 30s
 
   wordpress:
     build: ./wordpress
@@ -28,12 +28,12 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
     networks:
       - wordpress_net
     restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "CMD-SHELL", "curl -f localhost:9000 || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
+    # healthcheck:
+    #   test: ["CMD-SHELL", "CMD-SHELL", "curl -f localhost:9000 || exit 1"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 30s
     ports: #포트를 외부에 노출해야하나? 굳이?
       - "9000:9000"
     expose:
@@ -52,12 +52,12 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
     volumes:
       - wordpress_volume:/wordpress
     restart: always
-    healthcheck:
-      test: ["CMD-SHELL", " curl -f localhost ping --silent || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
+    # healthcheck:
+    #   test: ["CMD-SHELL", " curl -f localhost ping --silent || exit 1"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 30s
     depends_on:
       wordpress:
         condition: service_healthy

@@ -4,7 +4,8 @@
 INIT_FLAG="/.initialized"
 
 if [ ! -f "$INIT_FLAG" ]; then
-
+    touch $INIT_FLAG
+    
     # wp-cli 설치
 	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 	chmod 777 wp-cli.phar
@@ -18,11 +19,11 @@ if [ ! -f "$INIT_FLAG" ]; then
     WD_NAME="wordpress"
     WD_USER="hgu"
     WD_USER_PASS="1234"
-    DB_HOST="mariadb:3306"
+    DB_HOST="mariadb"
 
     # wordpress conf파일 설정(db와 유저)
     cd /wordpress
-    wp config create --dbhost=$DB_HOST --dbname=$WD_NAME --dbuser=$WD_USER --dbpass=$WD_USER_PASS
+    wp config create --dbhost=172.17.0.3 --dbname=$WD_NAME --dbuser=$WD_USER --dbpass=$WD_USER_PASS
     # wp config create --dbhost=mariadb:3306 --dbname=wordpress --dbuser=hgu --dbpass=1234
 
     # wordpress install
@@ -37,8 +38,6 @@ if [ ! -f "$INIT_FLAG" ]; then
     sed -i 's/;listen.mode = 0660/listen.mode = 0660/g' /etc/php82/php-fpm.d/www.conf
     sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/g' /etc/php82/php-fpm.d/www.conf       
     sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php82/php-fpm.conf
-
-    touch $INIT_FLAG
 fi
 
 exec php-fpm82 -F
