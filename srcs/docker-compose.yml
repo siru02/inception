@@ -39,8 +39,8 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
     expose:
       - "9000"
     depends_on:
-      mariadb:
-        condition: service_healthy
+      - mariadb
+        # condition: service_healthy
 
   nginx:
     build: ./nginx
@@ -59,8 +59,8 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
     #   retries: 3
     #   start_period: 30s
     depends_on:
-      wordpress:
-        condition: service_healthy
+      - wordpress
+        # condition: service_healthy
 
 # volume
 volumes:
