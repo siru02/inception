@@ -53,6 +53,8 @@ EOF
 
     # MariaDB 종료
     mysqladmin -u root -pabcd shutdown
+
+    echo "mariaDB setting flow complete";
 fi
 
 echo "mariadb building success";

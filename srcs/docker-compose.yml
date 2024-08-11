@@ -84,20 +84,6 @@ volumes:
       type: none
       o: bind
       device: /home/hgu/data/wordpress
-# # volume
-# volumes:
-#   mariaDB_volume:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /Users/guhyeokmo/Desktop/42/data/hgu/DB
-#   wordpress_volume:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /Users/guhyeokmo/Desktop/42/data/hgu/WordPress
 
 networks:
   wordpress_net:
