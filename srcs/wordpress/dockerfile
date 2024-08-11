@@ -3,7 +3,8 @@ FROM alpine:3.19
 RUN apk update && \
     apk upgrade && \
     apk add dumb-init && \
-    apk add php php-phar php-curl php-openssl php-mysqli php-iconv php-fpm && \
+    apk add php php-phar php-curl php-openssl php-mysqli php-iconv php-fpm php-opcache php-gd php-zlib php-json php-mbstring && \
+    apk add php-xml php-simplexml && \
     apk add fcgi
 
 COPY wordpress.sh /usr/local/bin
