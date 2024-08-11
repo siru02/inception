@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# 초기화 여부 확인
-# INIT_FLAG="/wordpress/.initialized"
-
 if [ ! -f "/wordpress/wp-config.php" ]; then
 
     # wp-cli 설치
@@ -17,12 +14,14 @@ if [ ! -f "/wordpress/wp-config.php" ]; then
     cd /wordpress
 
     # wordpress conf파일 설정(db와 유저)
-    # wp config create --dbhost=3306 --dbname=wordpress --dbuser=hgu --dbpass=1234
-    wp config create --dbhost=mariadb --dbname=wordpress --dbuser=hgu --dbpass=1234
+    wp config create --dbhost=$DB_HOST --dbname=$WD_NAME --dbuser=$WD_AD --dbpass=$WD_AD_PASS
 
     # wordpress install
-    wp core install --url=hgu_wordpress --title="hgu" --admin_user=hgu --admin_password=qwer --admin_email=khm32323@naver.coms
+    wp core install --url=42.hgu.fr --title=hgu --admin_user=$WD_AD --admin_password=$WD_AD_PASS --admin_email=khm32323@naver.coms
     
+    # create user
+    wp user create $WD_USER $WD_USER_EMAIL --role=author --user_pass=$WD_USER_PASS
+
     # php-fpm
     adduser -S nginx && addgroup -S nginx
     sed -i 's/user = nobody/user = nginx/g' /etc/php82/php-fpm.d/www.conf

@@ -5,9 +5,11 @@ NAME=inception
 	# chmod 777 /home/hgu/data/DB
 	# chmod 777 /home/hgu/data/wordpress
 
-all: $(NAME):
+all: $(NAME)
+
+$(NAME):
 	mkdir -p /Users/guhyeokmo/Desktop/42/data/hgu/wordpress
-	mkdir -p /Users/guhyeokmo/Desktop/42/data/hgu/wordpress
+	mkdir -p /Users/guhyeokmo/Desktop/42/data/hgu/DB
 	mkdir -p /home/hgu/data/wordpress
 	chmod 777 /home/hgu/data/DB
 	chmod 777 /home/hgu/data/wordpress

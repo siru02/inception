@@ -1,11 +1,10 @@
 #!/bin/sh
 
 # 초기화 여부 확인 TODO: 이렇게 하는게 맞는지 확인해야함 결국 재시작시 기록이 남아있나?
-INIT_FLAG="/.initialized"
 
-if [ ! -f "$INIT_FLAG" ]; then
+if [ ! -f "$DB_INIT_FLAG" ]; then
        # 초기화 완료 플래그 생성
-    touch "$INIT_FLAG"
+    touch "$DB_INIT_FLAG"
     
     if [ ! -d "/var/lib/mysql/mysql" ]; then
         mkdir -p /var/lib/mysql
@@ -42,8 +41,8 @@ if [ ! -f "$INIT_FLAG" ]; then
 
     -- 워드프레스 db생성 및 관리자 추가
     CREATE DATABASE IF NOT EXISTS $WD_NAME;
-    CREATE USER IF NOT EXISTS '$WD_USER'@'%' IDENTIFIED BY '$WD_USER_PASS';
-    GRANT ALL PRIVILEGES ON $WD_NAME.* TO '$WD_USER'@'%';
+    CREATE USER IF NOT EXISTS '$WD_AD'@'%' IDENTIFIED BY '$WD_AD_PASS';
+    GRANT ALL PRIVILEGES ON $WD_NAME.* TO '$WD_AD'@'%';
     FLUSH PRIVILEGES;
 
     -- 접속 종료

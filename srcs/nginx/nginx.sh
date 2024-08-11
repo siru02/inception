@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# 초기화 여부 확인
+# 초기화 여부 확인 
 INIT_FLAG="/.initialized"
 
 # wordpress, db컨테이너를 위해 대기
