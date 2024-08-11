@@ -12,9 +12,10 @@ if [ ! -f /etc/ssl/private/nginx-selfsigned.key ]; then
         -keyout /etc/ssl/private/nginx-selfsigned.key \
         -out /etc/ssl/certs/nginx-selfsigned.crt \
         -subj "/C=KO/ST=Seoul/L=Gaepo/O=42Seoul/OU=hgu/CN=hgu.42.fr"
+        echo "generate crt";
 fi
 
-sed -i 's/user = nginx/user = root/g' /etc/nginx/nginx.conf
+# sed -i 's/user = nginx/user = root/g' /etc/nginx/nginx.conf
 
 echo "nginx building success";
 
