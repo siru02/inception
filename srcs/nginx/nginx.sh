@@ -18,6 +18,8 @@ if [ ! -f "$NGINX_INIT_FLAG" ]; then
     fi
 fi
 
+sed -i 's/user = nginx/user = root/g' /etc/nginx/nginx.conf
+
 echo "nginx building success";
 
 # nginx forgound에서 실행
