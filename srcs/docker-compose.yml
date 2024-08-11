@@ -14,6 +14,7 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
       WD_NAME: ${WD_NAME}
       WD_AD: ${WD_AD}
       WD_AD_PASS: ${WD_AD_PASS}
+      DB_INIT_FLAG: ${DB_INIT_FLAG}
     expose:
       - "3306"
     restart: always
@@ -39,6 +40,7 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
       WD_USER: ${WD_USER}
       WD_USER_EMAIL: ${WD_USER_EMAIL}
       WD_USER_PASS: ${WD_USER_PASS}
+      WD_INIT_FLAG: ${WD_INIT_FLAG}
     restart: always
     healthcheck:
           test: ["CMD-SHELL", "SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect localhost:9000"]
@@ -59,9 +61,11 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
       - wordpress_net
     ports:
       - "443:443"
+    environment:
+      NGINX_INIT_FLAG: ${NGINX_INIT_FLAG}
     volumes:
       - wordpress_volume:/wordpress
-    restart: always
+    # restart: always
     depends_on:
       wordpress:
         condition: service_healthy
