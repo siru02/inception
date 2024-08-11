@@ -36,6 +36,9 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
       WD_AD: ${WD_AD}
       WD_AD_PASS: ${WD_AD_PASS}
       DB_HOST: ${DB_HOST}
+      WD_USER: ${WD_USER}
+      WD_USER_EMAIL: ${WD_USER_EMAIL}
+      WD_USER_PASS: ${WD_USER_PASS}
     restart: always
     healthcheck:
           test: ["CMD-SHELL", "SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect localhost:9000"]
@@ -64,33 +67,33 @@ services: #여기에 사용할 컨테이너(어플리케이션)을 정의
         condition: service_healthy
 
 # # volume
-volumes:
-  mariaDB_volume:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/hgu/data/DB
-  wordpress_volume:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/hgu/data/wordpress
-# volume
 # volumes:
 #   mariaDB_volume:
 #     driver: local
 #     driver_opts:
 #       type: none
 #       o: bind
-#       device: /Users/guhyeokmo/Desktop/42/data/hgu/DB
+#       device: /home/hgu/data/DB
 #   wordpress_volume:
 #     driver: local
 #     driver_opts:
 #       type: none
 #       o: bind
-#       device: /Users/guhyeokmo/Desktop/42/data/hgu/WordPress
+#       device: /home/hgu/data/wordpress
+# volume
+volumes:
+  mariaDB_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/guhyeokmo/Desktop/42/data/hgu/DB
+  wordpress_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/guhyeokmo/Desktop/42/data/hgu/WordPress
 
 networks:
   wordpress_net:
