@@ -8,6 +8,7 @@ NAME=inception
 all: $(NAME)
 
 $(NAME):
+	mkdir -p /home/hgu/data
 	mkdir -p /Users/guhyeokmo/Desktop/42/data/hgu/wordpress
 	mkdir -p /Users/guhyeokmo/Desktop/42/data/hgu/DB
 	mkdir -p /home/hgu/data/wordpress
