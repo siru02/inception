@@ -1,47 +1,40 @@
-user nginx;
-worker_processes auto;
+# This is a default site configuration which will simply return 404, preventing
+# chance access to any other virtualhost.
 
-error_log /var/log/nginx/error.log warn;
-# pid /var/run/nginx/nginx.pid;
-
-events {
-    worker_connections 1024;
-}
-
-http {
-    include /etc/nginx/mime.types;
-    default_type application/octet-stream;
-    sendfile on;
-    access_log /var/log/nginx/access.log;
-    keepalive_timeout 3000;
-
-    server {
+server {
+        #listen 80 default_server;
+        #listen [::]:80 default_server;
+        # 443으로 접속하기 위해서는 ssl이 필요함
         listen 443 ssl;
-        server_name example.com;
+        listen [::]:443 ssl;
 
-        ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-        ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+        server_name yonghyle.42.fr www.yonghyle.42.fr;
 
-        root /usr/share/nginx/html;
-        index index.html index.htm;
+        ssl_certificate     /ssl_files/my_ssl.pem;
+        ssl_certificate_key /ssl_files/my_ssl.key;
+        ssl_protocols       TLSv1.2 TLSv1.3;
 
-        client_max_body_size 32m;
-        error_page 500 502 503 504 /50x.html;
+        root /wp-files;
+        index index.php index.html index.htm;
 
+        #Everything is a 404
         location / {
-            try_files $uri $uri/ =404;
-        }
-
-        location = /50x.html {
-            root /var/lib/nginx/html;
+                autoindex on;
+                #return 404;
         }
 
         location ~ \.php$ {
-            include snippets/fastcgi-php.conf;
-            fastcgi_param SCRIPT_FILENAME /wordpress/$fastcgi_script_name;
-            fastcgi_pass wordpress:9000;
-        }
-    }
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+      fastcgi_pass      wordpress:9000;
+      fastcgi_index     index.php;
+      include           fastcgi_params;
+                fastcgi_param     SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_param     PATH_INFO $fastcgi_path_info;
+   }
 
-    include /etc/nginx/conf.d/*.conf;
+
+        # You may need this to prevent return 404 recursion.
+        location = /404.html {
+                internal;
+        }
 }
