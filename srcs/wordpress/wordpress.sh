@@ -35,6 +35,9 @@ if [ ! -f "/wordpress/wp-config.php" ]; then
     # sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php82/php-fpm.conf
 fi
 
+chown -R nginx:nginx /wordpress
+chmod -R 755 /wordpress
+
 echo "wordpress building success";
 
 exec php-fpm82 -F
