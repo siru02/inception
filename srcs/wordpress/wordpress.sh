@@ -24,13 +24,15 @@ if [ ! -f "/wordpress/wp-config.php" ]; then
 
     # php-fpm
     adduser -S nginx && addgroup -S nginx
-    sed -i 's/user = nobody/user = nginx/g' /etc/php82/php-fpm.d/www.conf
-    sed -i 's/group = nobody/group = nginx/g' /etc/php82/php-fpm.d/www.conf
-    sed -i 's/;listen.owner = nobody/listen.owner = nginx/g' /etc/php82/php-fpm.d/www.conf
-    sed -i 's/;listen.group = nginx/listen.group = nginx/g' /etc/php82/php-fpm.d/www.conf
-    sed -i 's/;listen.mode = 0660/listen.mode = 0660/g' /etc/php82/php-fpm.d/www.conf
-    sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/g' /etc/php82/php-fpm.d/www.conf       
-    sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php82/php-fpm.conf
+    mv /www.conf /etc/php82/php-fpm.d/
+    mv /php-fpm.conf /etc/php82/
+    # sed -i 's/user = nobody/user = nginx/g' /etc/php82/php-fpm.d/www.conf
+    # sed -i 's/group = nobody/group = nginx/g' /etc/php82/php-fpm.d/www.conf
+    # sed -i 's/;listen.owner = nobody/listen.owner = nginx/g' /etc/php82/php-fpm.d/www.conf
+    # sed -i 's/;listen.group = nginx/listen.group = nginx/g' /etc/php82/php-fpm.d/www.conf
+    # sed -i 's/listen.mode = 0660/listen.mode = 0660/g' /etc/php82/php-fpm.d/www.conf
+    # sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/g' /etc/php82/php-fpm.d/www.conf       
+    # sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php82/php-fpm.conf
 fi
 
 echo "wordpress building success";

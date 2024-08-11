@@ -7,6 +7,8 @@ RUN apk update && \
     apk add fcgi
 
 COPY wordpress.sh /usr/local/bin
+COPY www.conf /
+COPY php-fpm.conf /
 
 RUN chmod +x /usr/local/bin/wordpress.sh
 
