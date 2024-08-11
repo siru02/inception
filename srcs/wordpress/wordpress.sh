@@ -23,9 +23,6 @@ if [ ! -f "/wordpress/wp-config.php" ]; then
     wp user create $WD_USER $WD_USER_EMAIL --role=author --user_pass=$WD_USER_PASS
 
     # php-fpm
-    adduser -S nginx && addgroup -S nginx
-    mv /www.conf /etc/php82/php-fpm.d/
-    mv /php-fpm.conf /etc/php82/
     # sed -i 's/user = nobody/user = nginx/g' /etc/php82/php-fpm.d/www.conf
     # sed -i 's/group = nobody/group = nginx/g' /etc/php82/php-fpm.d/www.conf
     # sed -i 's/;listen.owner = nobody/listen.owner = nginx/g' /etc/php82/php-fpm.d/www.conf
@@ -35,8 +32,11 @@ if [ ! -f "/wordpress/wp-config.php" ]; then
     # sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php82/php-fpm.conf
 fi
 
+adduser -S nginx && addgroup -S nginx
+mv /www.conf /etc/php82/php-fpm.d/
+mv /php-fpm.conf /etc/php82/
+
 chown -R nginx:nginx /wordpress
-chmod -R 755 /wordpress
 
 echo "wordpress building success";
 

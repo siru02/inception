@@ -1,19 +1,19 @@
 #!/bin/sh
 
 # 초기화 여부 확인 TODO: 이렇게 하는게 맞는지 확인해야함 결국 재시작시 기록이 남아있나?
+    
+if [ ! -d "/var/lib/mysql/mysql" ]; then
+    mkdir -p /var/lib/mysql
+    # chown -R mysql:mysql /var/lib/mysql
+    chmod -R 755 /var/lib/mysql
+fi
+
+# MariaDB 데이터 디렉토리 초기화 / 이미 존재하면 실행되지 않으니 항상해도 됨
+mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 if [ ! -f "$DB_INIT_FLAG" ]; then
        # 초기화 완료 플래그 생성
     touch "$DB_INIT_FLAG"
-    
-    if [ ! -d "/var/lib/mysql/mysql" ]; then
-        mkdir -p /var/lib/mysql
-        # chown -R mysql:mysql /var/lib/mysql
-        chmod -R 755 /var/lib/mysql
-    fi
-
-	# MariaDB 데이터 디렉토리 초기화 / 이미 존재하면 실행되지 않으니 항상해도 됨
-    mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
     # MariaDB 백그라운드에서 실행 -> 테스트에서는 포그라운드에서 실행하도록
     /usr/bin/mysqld_safe --user=mysql --datadir=/var/lib/mysql &
