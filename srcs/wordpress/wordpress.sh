@@ -17,7 +17,7 @@ if [ ! -f "/wordpress/wp-config.php" ]; then
     wp config create --dbhost=$DB_HOST --dbname=$WD_NAME --dbuser=$WD_AD --dbpass=$WD_AD_PASS
 
     # wordpress install
-    wp core install --url=localhost --title=hgu --admin_user=$WD_AD --admin_password=$WD_AD_PASS --admin_email=khm32323@naver.coms
+    wp core install --url=hgu.42.fr --title=hgu --admin_user=$WD_AD --admin_password=$WD_AD_PASS --admin_email=khm32323@naver.coms
     
     # create user
     wp user create $WD_USER $WD_USER_EMAIL --role=author --user_pass=$WD_USER_PASS
