@@ -8,11 +8,6 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     chmod -R 755 /var/lib/mysql
 fi
 
-# MariaDB 설정파일 변경
-config_file="/etc/my.cnf.d/mariadb-server.cnf"
-sed -i 's/^skip-networking/#skip-networking/' $config_file # skip-networking을 주석처리하면 유닉스소켓대신 네트워크로 통신하겠다는 설정
-sed -i 's/^#\s*bind-address/bind-address/' $config_file # bind-address는 maria-db에 연결허용할 ip주소를 설정한다
-
 if [ ! -f "$DB_INIT_FLAG" ]; then
     # 초기화 완료 플래그 생성
     touch "$DB_INIT_FLAG"
@@ -54,6 +49,11 @@ EOF
 
     echo "mariaDB setting flow complete";
 fi
+
+# MariaDB 설정파일 변경
+config_file="/etc/my.cnf.d/mariadb-server.cnf"
+sed -i 's/^skip-networking/#skip-networking/' $config_file # skip-networking을 주석처리하면 유닉스소켓대신 네트워크로 통신하겠다는 설정
+sed -i 's/^#\s*bind-address/bind-address/' $config_file # bind-address는 maria-db에 연결허용할 ip주소를 설정한다
 
 echo "mariadb building success";
 
