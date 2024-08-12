@@ -31,12 +31,10 @@ if [ ! -f "/wordpress/wp-config.php" ]; then
     # sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/g' /etc/php82/php-fpm.d/www.conf       
     # sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php82/php-fpm.conf
 
+    adduser -S nginx && addgroup -S nginx
+
     echo "wordpress install flow complete";
 fi
-
-adduser -S nginx && addgroup -S nginx
-mv /www.conf /etc/php82/php-fpm.d/
-mv /php-fpm.conf /etc/php82/
 
 chown -R nginx:nginx /wordpress
 

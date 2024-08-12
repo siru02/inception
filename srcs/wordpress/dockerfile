@@ -8,8 +8,8 @@ RUN apk update && \
     apk add fcgi
 
 COPY wordpress.sh /usr/local/bin
-COPY www.conf /
-COPY php-fpm.conf /
+COPY www.conf /etc/php82/php-fpm.d/
+COPY php-fpm.conf /etc/php82/
 
 RUN chmod +x /usr/local/bin/wordpress.sh
 
