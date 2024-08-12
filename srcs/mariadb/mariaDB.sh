@@ -8,7 +8,10 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     chmod -R 755 /var/lib/mysql
 fi
 
-# MariaDB 데이터 디렉토리 초기화 / 이미 존재하면 실행되지 않으니 항상해도 됨
+# MariaDB 설정파일 변경
+config_file="/etc/my.cnf.d/mariadb-server.cnf"
+sed -i 's/^skip-networking/#skip-networking/' $config_file # skip-networking을 주석처리하면 유닉스소켓대신 네트워크로 통신하겠다는 설정
+sed -i 's/^#\s*bind-address/bind-address/' $config_file # bind-address는 maria-db에 연결허용할 ip주소를 설정한다
 
 if [ ! -f "$DB_INIT_FLAG" ]; then
     # 초기화 완료 플래그 생성
@@ -23,12 +26,6 @@ if [ ! -f "$DB_INIT_FLAG" ]; then
     while ! mysqladmin ping --silent; do
         sleep 1
     done
-
-    config_file="/etc/my.cnf.d/mariadb-server.cnf"
-
-    # MariaDB 설정파일 변경
-    sed -i 's/^skip-networking/#skip-networking/' $config_file # skip-networking을 주석처리하면 유닉스소켓대신 네트워크로 통신하겠다는 설정
-    sed -i 's/^#\s*bind-address/bind-address/' $config_file # bind-address는 maria-db에 연결허용할 ip주소를 설정한다
 
     # MariaDB 접속 및 명령어 실행
     mysql -u $DB_USER -p$DB_PASS << EOF
