@@ -1,5 +1,9 @@
 #!/bin/sh
 
+#설정파일 복사
+mv /www.conf /etc/php82/php-fpm.d/
+mv /php-fpm.conf /etc/php82/
+
 if [ ! -f "/wordpress/wp-config.php" ]; then
 
     # wp-cli 설치
@@ -32,8 +36,9 @@ if [ ! -f "/wordpress/wp-config.php" ]; then
     # sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php82/php-fpm.conf
 
     adduser -S nginx && addgroup -S nginx
-
+    
     echo "wordpress install flow complete";
+    
 fi
 
 chown -R nginx:nginx /wordpress
