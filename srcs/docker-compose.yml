@@ -42,7 +42,6 @@ services:
       WD_USER: ${WD_USER}
       WD_USER_EMAIL: ${WD_USER_EMAIL}
       WD_USER_PASS: ${WD_USER_PASS}
-      WD_INIT_FLAG: ${WD_INIT_FLAG}
     restart: always
     healthcheck:
           test: ["CMD-SHELL", "SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect localhost:9000"]
@@ -64,8 +63,6 @@ services:
       - wordpress_net
     ports:
       - "443:443"
-    environment:
-      NGINX_INIT_FLAG: ${NGINX_INIT_FLAG}
     volumes:
       - wordpress_volume:/wordpress
     restart: always
