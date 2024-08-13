@@ -20,11 +20,11 @@ $(NAME):
 down:
 	docker-compose -f ./srcs/docker-compose.yml down
 
-# clean:
-# 	docker-compose -f ./srcs/docker-compose.yml down
-# 	docker-volume rm srcs_mariaDB_volume
-# 	docker-volume rm srcs_wordpress_volume
-# 	rm -rf /home/hgu/data
+clean:
+	docker-compose -f ./srcs/docker-compose.yml down
+	docker-volume rm srcs_mariaDB_volume
+	docker-volume rm srcs_wordpress_volume
+	rm -rf /home/hgu/data
 
 re: clean all
 
