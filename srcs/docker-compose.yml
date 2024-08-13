@@ -38,6 +38,7 @@ services:
       WD_NAME: ${WD_NAME}
       WD_AD: ${WD_AD}
       WD_AD_PASS: ${WD_AD_PASS}
+      WD_AD_EMAIL: ${WD_AD_EMAIL}
       DB_HOST: ${DB_HOST}
       WD_USER: ${WD_USER}
       WD_USER_EMAIL: ${WD_USER_EMAIL}
