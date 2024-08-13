@@ -4,7 +4,6 @@
     
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     mkdir -p /var/lib/mysql
-    # chown -R mysql:mysql /var/lib/mysql
     chmod -R 755 /var/lib/mysql
 fi
 
@@ -12,9 +11,10 @@ if [ ! -f "$DB_INIT_FLAG" ]; then
     # 초기화 완료 플래그 생성
     touch "$DB_INIT_FLAG"
 
+    # mariadb 데이터 디렉토리 초기화
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
-    # MariaDB 백그라운드에서 실행 -> 테스트에서는 포그라운드에서 실행하도록
+    # MariaDB(DBMS) 백그라운드에서 실행
     /usr/bin/mysqld_safe --user=mysql --datadir=/var/lib/mysql &
 
     # MariaDB 서버가 시작될 때까지 대기
@@ -38,14 +38,13 @@ if [ ! -f "$DB_INIT_FLAG" ]; then
     GRANT ALL PRIVILEGES ON $WD_NAME.* TO '$WD_AD'@'%';
     FLUSH PRIVILEGES;
 
-    -- 접속 종료
 EOF
 
     # wordpress폴더 권한부여
     chmod -R 755 /var/lib/mysql/wordpress
 
-    # MariaDB 종료
-    mysqladmin -u root -pabcd shutdown
+    # mariadbms를 관리
+    mysqladmin -u root shutdown #비밀번호 설정해야하나?
 
     echo "mariaDB setting flow complete";
 fi
