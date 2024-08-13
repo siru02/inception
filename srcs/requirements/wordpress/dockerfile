@@ -5,9 +5,9 @@ RUN apk update && \
     apk add dumb-init && \
     apk add php php-phar php-curl php-openssl php-mysqli php-iconv php-fpm fcgi
 
-COPY wordpress.sh /usr/local/bin
-COPY www.conf /
-COPY php-fpm.conf /
+COPY /tools/wordpress.sh /usr/local/bin
+COPY conf/www.conf /
+COPY conf/php-fpm.conf /
 
 RUN chmod +x /usr/local/bin/wordpress.sh
 
