@@ -10,26 +10,17 @@ if [ ! -f "/wordpress/wp-config.php" ]; then
 	# wordpress설치
     mkdir -p /wordpress
     chmod -R 755 /wordpress
-	wp core download --path=/wordpress # 루트디렉토리의 wordpress폴더에 설치한다
+	wp core download --path=/wordpress # 루트디렉토리의 wordpress폴더에 wordpress파일다운
     cd /wordpress
 
     # wordpress conf파일 설정(db와 유저)
     wp config create --dbhost=$DB_HOST --dbname=$WD_NAME --dbuser=$WD_AD --dbpass=$WD_AD_PASS
 
     # wordpress install
-    wp core install --url=hgu.42.fr --title=hgu --admin_user=$WD_AD --admin_password=$WD_AD_PASS --admin_email=khm32323@naver.coms
+    wp core install --url=hgu.42.fr --title=hgu --admin_user=$WD_AD --admin_password=$WD_AD_PASS --admin_email=$WD_AD_EMAIL
     
     # create user
     wp user create $WD_USER $WD_USER_EMAIL --role=author --user_pass=$WD_USER_PASS
-
-    # php-fpm
-    # sed -i 's/user = nobody/user = nginx/g' /etc/php82/php-fpm.d/www.conf
-    # sed -i 's/group = nobody/group = nginx/g' /etc/php82/php-fpm.d/www.conf
-    # sed -i 's/;listen.owner = nobody/listen.owner = nginx/g' /etc/php82/php-fpm.d/www.conf
-    # sed -i 's/;listen.group = nginx/listen.group = nginx/g' /etc/php82/php-fpm.d/www.conf
-    # sed -i 's/listen.mode = 0660/listen.mode = 0660/g' /etc/php82/php-fpm.d/www.conf
-    # sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/g' /etc/php82/php-fpm.d/www.conf       
-    # sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php82/php-fpm.conf
 
     echo "wordpress install flow complete";
 fi
