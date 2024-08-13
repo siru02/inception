@@ -2,7 +2,7 @@
 
 services:
   mariadb:
-    build: ./mariadb
+    build: ./requirements/mariadb
     container_name: mariadb
     image: mariadb:hgu
     volumes:
@@ -27,7 +27,7 @@ services:
       start_period: 10s
 
   wordpress:
-    build: ./wordpress
+    build: ./requirements/wordpress
     container_name: wordpress
     image: wordpress:hgu
     volumes:
@@ -58,7 +58,7 @@ services:
         condition: service_healthy
 
   nginx:
-    build: ./nginx
+    build: ./requirements/nginx
     container_name: nginx
     image: nginx:hgu
     networks:
