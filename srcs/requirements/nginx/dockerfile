@@ -8,9 +8,9 @@ RUN apk update && \
 
 # RUN mkdir -p /etc/nginx/ssl
 
-COPY nginx.sh /usr/local/bin
+COPY tools/nginx.sh /usr/local/bin
 
-COPY default.conf /
+COPY conf/default.conf /
 
 RUN chmod +x /usr/local/bin/nginx.sh
 
