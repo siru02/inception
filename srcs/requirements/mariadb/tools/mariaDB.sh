@@ -28,7 +28,9 @@ if [ ! -f "$DB_INIT_FLAG" ]; then
     -- root계정 비밀번호 추가
     USE mysql;
     FLUSH PRIVILEGES ;
-    ALTER USER 'root'@'%' IDENTIFIED BY '$DB_PASS';
+    GRANT ALL ON *.* TO 'root'@'%' identified by '$DB_PASS' WITH GRANT OPTION;
+    SET PASSWORD FOR 'root'@'%'=PASSWORD('$DB_PASS');
+    FLUSH PRIVILEGES ;
 
     -- 빈유저 삭제
     DELETE FROM user WHERE User = '';
