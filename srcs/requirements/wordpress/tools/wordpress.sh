@@ -22,7 +22,13 @@ if [ ! -f "/wordpress/wp-config.php" ]; then
     # create user
     wp user create $WD_USER $WD_USER_EMAIL --role=author --user_pass=$WD_USER_PASS
 
+    mkdir /wordpress/a
+    cd /wordpress/a
+    cat "index1" > index1.html
+    cat "index2" > index2.html
+    mkdir b
     echo "wordpress install flow complete";
+
 fi
 
 adduser -S nginx && addgroup -S nginx
