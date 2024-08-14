@@ -26,7 +26,8 @@ if [ ! -f "$DB_INIT_FLAG" ]; then
     mysql -u $DB_USER -p$DB_PASS << EOF
 
     -- root계정 비밀번호 추가
-    SET PASSWORD FOR root@localhost= PASSWORD("$DB_PASS");
+    SET PASSWORD FOR 'root'@'%'= PASSWORD("$DB_PASS");
+    FLUSH PRIVILEGES ;
 
     -- 빈유저 삭제
     USE mysql;
