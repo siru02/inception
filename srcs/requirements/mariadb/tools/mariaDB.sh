@@ -26,11 +26,11 @@ if [ ! -f "$DB_INIT_FLAG" ]; then
     mysql -u $DB_USER -p$DB_PASS << EOF
 
     -- root계정 비밀번호 추가
+    USE mysql;
     FLUSH PRIVILEGES ;
     ALTER USER 'root'@'%' IDENTIFIED BY '$DB_PASS';
 
     -- 빈유저 삭제
-    USE mysql;
     DELETE FROM user WHERE User = '';
 
     -- 워드프레스 db생성 및 관리자 추가
