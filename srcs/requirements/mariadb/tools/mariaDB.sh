@@ -26,7 +26,7 @@ if [ ! -f "$DB_INIT_FLAG" ]; then
     mysql -u $DB_USER -p$DB_PASS << EOF
 
     -- root계정 비밀번호 추가
-    SET PASSWORD FOR 'root'@'%'= PASSWORD("$DB_PASS");
+    ALTER USER 'root'@'%' IDENTIFIED BY '$DB_PASS';
     FLUSH PRIVILEGES ;
 
     -- 빈유저 삭제
@@ -45,7 +45,7 @@ EOF
     chmod -R 755 /var/lib/mysql/wordpress
 
     # mariadbms를 관리
-    mysqladmin -u root shutdown #비밀번호 설정해야하나?
+    mysqladmin -u root shutdown -p $DB_PASS #비밀번호 설정해야하나?
 
     echo "mariaDB setting flow complete";
 fi
