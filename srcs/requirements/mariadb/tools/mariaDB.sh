@@ -45,7 +45,7 @@ EOF
     chmod -R 755 /var/lib/mysql/wordpress
 
     # mariadbms를 관리
-    mysqladmin -u root shutdown -p $DB_PASS #비밀번호 설정해야하나?
+    mysqladmin -u root shutdown -p$DB_PASS #비밀번호 설정해야하나?
 
     echo "mariaDB setting flow complete";
 fi
