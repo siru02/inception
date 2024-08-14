@@ -23,7 +23,7 @@ if [ ! -f "$DB_INIT_FLAG" ]; then
     done
 
     # MariaDB 접속 및 명령어 실행
-    mysql -u $DB_USER -p$DB_PASS << EOF
+    mysql -u $DB_USER << EOF
 
     -- root계정 비밀번호 추가
     USE mysql;
