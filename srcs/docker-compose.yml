@@ -49,7 +49,7 @@ services:
           test: ["CMD-SHELL", "SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect localhost:9000"]
           interval: 10s
           timeout: 10s
-          retries: 3
+          retries: 10
           start_period: 30s
     expose:
       - "9000"  
