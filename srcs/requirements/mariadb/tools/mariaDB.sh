@@ -15,7 +15,7 @@ if [ ! -f "$DB_INIT_FLAG" ]; then
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
     # MariaDB(DBMS) 백그라운드에서 실행
-    /usr/bin/mysqld_safe --user=mysql --datadir=/var/lib/mysql &
+    mysqld_safe --user=mysql --datadir=/var/lib/mysql &
 
     # MariaDB 서버가 시작될 때까지 대기
     while ! mysqladmin ping --silent; do
@@ -28,8 +28,7 @@ if [ ! -f "$DB_INIT_FLAG" ]; then
     -- root계정 비밀번호 추가
     USE mysql;
     FLUSH PRIVILEGES ;
-    GRANT ALL ON *.* TO 'root'@'%' identified by '$DB_PASS' WITH GRANT OPTION;
-    SET PASSWORD FOR 'root'@'%'=PASSWORD('$DB_PASS');
+    ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_PASS';
     FLUSH PRIVILEGES ;
 
     -- 빈유저 삭제
